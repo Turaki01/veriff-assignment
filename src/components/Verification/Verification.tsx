@@ -31,7 +31,10 @@ const Verification: React.FC<VerificationProps> = ({
 
             <div className="custom-toggle">
               <div
-                onClick={() => onCheckSelect("yes", index)}
+                onClick={() =>
+                  Number(check.active_index) >= index &&
+                  onCheckSelect("yes", index)
+                }
                 className={`toggle-items ${
                   check.checked_value === "yes" && "toggle-items__active"
                 }`}
@@ -39,7 +42,10 @@ const Verification: React.FC<VerificationProps> = ({
                 Yes
               </div>
               <div
-                onClick={() => onCheckSelect("no", index)}
+                onClick={() =>
+                  Number(check.active_index) >= index &&
+                  onCheckSelect("no", index)
+                }
                 className={`toggle-items ${
                   check.checked_value === "no" && "toggle-items__active"
                 }`}

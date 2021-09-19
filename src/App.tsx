@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { fetchChecks, submitCheckResults } from "./api";
 import Button from "./components/Button/Button";
 import Verification from "./components/Verification/Verification";
@@ -14,13 +15,16 @@ import {
 
 export default function App() {
   const { updateListOfChecks, listOfChecks } = React.useContext(ChecksContext);
+  const [checksLoader, setChecksLoader] = React.useState<boolean>(false);
 
   const fetchListOfChecks = async () => {
+    setChecksLoader(true);
     await fetchChecks()
       .then((res: CheckObjectInterface[]) => {
         updateListOfChecks(transform_array(res));
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setChecksLoader(false));
   };
 
   const onCheckSelect = (selection: string, selectedCheckIndex: number) => {
@@ -39,8 +43,9 @@ export default function App() {
   };
 
   const onHandleSubmit = async () => {
-    await submitCheckResults(listOfChecks).then((res) => {
-      console.log(res);
+    await submitCheckResults(listOfChecks).then(() => {
+      toast.success("check submitted");
+      fetchListOfChecks();
     });
   };
 
@@ -67,11 +72,13 @@ export default function App() {
           onCheckSelect={onCheckSelect}
         />
       ) : (
-        <div className="empty-state-div ">
-          <h3>Nothing to see here</h3>
+        !checksLoader && (
+          <div className="empty-state-div ">
+            <h3>Nothing to see here</h3>
 
-          <Button onClick={fetchListOfChecks}>Fetch Data</Button>
-        </div>
+            <Button onClick={fetchListOfChecks}>Fetch Data</Button>
+          </div>
+        )
       )}
     </div>
   );

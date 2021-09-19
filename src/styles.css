@@ -3,7 +3,9 @@
 
   --primary-color: #004e5f;
   --highlight-color: #def7f7;
+  --active-check-color: #d7d7d733;
   height: 100vh;
+  overflow-y: hidden;
 }
 
 .js-focus-visible :focus:not([data-focus-visible-added]) {
@@ -29,4 +31,15 @@ body {
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
   outline: none;
+}
+
+.empty-state-div {
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
 }

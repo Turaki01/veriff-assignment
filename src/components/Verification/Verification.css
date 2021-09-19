@@ -12,6 +12,15 @@
   background-color: var(--highlight-color);
 }
 
+.active-verification-item {
+  background-color: var(--active-check-color);
+}
+
+.disabled-verification-item {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .verification-items > p {
   margin: 0 0 13px 0;
 }
